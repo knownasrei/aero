@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroBot | ESP32 Self-Balancing Robot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(to right, #4f46e5, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold tracking-tighter text-slate-800">
+            Aero<span class="text-indigo-600">Bot</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#features" class="text-slate-600 hover:text-indigo-600 transition">Features</a>
+            <a href="#tech" class="text-slate-600 hover:text-indigo-600 transition">Technology</a>
+        </div>
+        <a href="#buy" class="bg-indigo-600 text-white px-6 py-2 rounded-full font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+            Pre-order Now
+        </a>
+    </nav>
+
+    <section class="container mx-auto px-6 py-20 text-center md:py-32">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            Flawless Balance. <br>
+            <span class="gradient-text">Ultimate Control.</span>
+        </h1>
+        <p class="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Meet the next generation of self-balancing robotics. Powered by the lightning-fast ESP32 chip and controlled seamlessly from your smartphone using the dedicated WiFi Balancing Robot app.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#buy" class="bg-slate-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-slate-800 transition w-full sm:w-auto">
+                Get Yours Today
+            </a>
+            <a href="#app" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-full font-semibold hover:bg-slate-50 transition w-full sm:w-auto shadow-sm">
+                Download the App
+            </a>
+        </div>
+    </section>
+
+    <section id="features" class="bg-white py-20 border-t border-slate-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Engineered for Perfection</h2>
+                <p class="text-slate-600 max-w-lg mx-auto">We combined industrial-grade sensors with intelligent algorithms to create a robot that defies gravity.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        🧠
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">ESP32 Brain</h3>
+                    <p class="text-slate-600 leading-relaxed">Equipped with a dual-core ESP32 microcontroller, delivering high-speed processing and built-in WiFi connectivity for zero-latency control.</p>
+                </div>
+                
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        ⚖️
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Precision MPU6050 IMU</h3>
+                    <p class="text-slate-600 leading-relaxed">Advanced gyroscope and accelerometer sensors paired with a custom PID algorithm keep the robot perfectly upright, even when pushed.</p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        📱
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Direct App Control</h3>
+                    <p class="text-slate-600 leading-relaxed">Connects directly to the ESP32 WiFi Balancing Robot App. Drive forward, backward, turn, and adjust speed settings directly from your phone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="app" class="bg-slate-900 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to take the wheel?</h2>
+            <p class="text-slate-400 mb-10 max-w-xl mx-auto">The ESP32 Wifi Balancing Robot app is available for download. Pair it with your robot and start driving in seconds via wireless AP/STA mode.</p>
+            <p class="text-sm text-slate-500 mt-12">© 2026 AeroBot Robotics. Created for Entrepreneurial Mind.</p>
+        </div>
+    </section>
+
+</body>
+</html>
