@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aero Bot — Self-Balancing Robot Kit</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <title>Aero Bot – Self-Balancing Robot Kit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #0ea5e9;
-      --primary-dark: #0284c7;
-      --accent: #f97316;
-      --dark: #0f172a;
-      --dark-2: #1e293b;
-      --dark-3: #334155;
-      --light: #f8fafc;
-      --muted: #94a3b8;
-      --success: #22c55e;
-      --border: rgba(255,255,255,0.08);
+      --primary: #00d4ff;
+      --secondary: #7b2fff;
+      --accent: #ff6b35;
+      --dark: #050a14;
+      --dark2: #0a1628;
+      --dark3: #0f1f3d;
       --card-bg: rgba(255,255,255,0.04);
-      --glow: 0 0 40px rgba(14,165,233,0.15);
+      --border: rgba(0,212,255,0.2);
+      --text: #e0eaff;
+      --muted: #7a90b0;
     }
 
     html { scroll-behavior: smooth; }
@@ -28,1107 +26,1058 @@
     body {
       font-family: 'Inter', sans-serif;
       background: var(--dark);
-      color: #e2e8f0;
-      line-height: 1.6;
+      color: var(--text);
       overflow-x: hidden;
     }
 
-    /* ── NAVBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+    /* ── NAV ── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15,23,42,0.85);
-      backdrop-filter: blur(16px);
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(5,10,20,0.85);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
     }
-
     .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.5px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900; font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
     }
-
-    .nav-logo span {
-      color: var(--primary);
-    }
-
-    .nav-logo .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--primary), #6366f1);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color 0.2s;
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      transition: color .3s;
     }
-
-    .nav-links a:hover { color: #fff; }
-
+    .nav-links a:hover { color: var(--primary); }
     .nav-cta {
-      background: var(--primary);
-      color: #fff !important;
-      padding: 0.45rem 1.1rem;
-      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff !important; padding: .5rem 1.2rem; border-radius: 50px;
       font-weight: 600 !important;
-      transition: background 0.2s !important;
     }
-
-    .nav-cta:hover { background: var(--primary-dark) !important; color: #fff !important; }
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 4rem 2rem;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse at 80% 80%, rgba(123,47,255,0.1) 0%, transparent 60%),
+                  var(--dark);
+      padding: 8rem 2rem 4rem;
+      position: relative; overflow: hidden;
     }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.18) 0%, transparent 70%),
-                  radial-gradient(ellipse 60% 50% at 80% 80%, rgba(99,102,241,0.12) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,212,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.05) 1px, transparent 1px);
       background-size: 60px 60px;
-      pointer-events: none;
+      animation: gridMove 20s linear infinite;
     }
-
-    .hero-inner {
-      position: relative;
-      max-width: 1100px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
+    @keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(60px); } }
 
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(14,165,233,0.12);
-      border: 1px solid rgba(14,165,233,0.3);
-      color: var(--primary);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.35rem 0.9rem;
-      border-radius: 50px;
-      margin-bottom: 1.2rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(0,212,255,0.1); border: 1px solid var(--border);
+      padding: .4rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; color: var(--primary);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem;
     }
+    .hero-badge .pulse-dot {
+      width: 8px; height: 8px; background: var(--primary);
+      border-radius: 50%; animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
 
     .hero h1 {
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -1.5px;
-      color: #fff;
-      margin-bottom: 1.2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900; line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, var(--primary) 70%, var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
     }
-
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--primary), #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
     .hero p {
-      color: var(--muted);
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
-      max-width: 480px;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted); max-width: 600px; margin: 0 auto 2.5rem;
+      line-height: 1.7;
     }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 0.8rem 1.8rem;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(14,165,233,0.35);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; padding: .9rem 2.2rem; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+      transition: transform .3s, box-shadow .3s;
+      display: inline-flex; align-items: center; gap: .5rem;
     }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(14,165,233,0.45);
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
+    .btn-outline {
+      border: 1px solid var(--border); color: var(--text);
+      padding: .9rem 2.2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      backdrop-filter: blur(10px); transition: border-color .3s, color .3s;
+      display: inline-flex; align-items: center; gap: .5rem;
     }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: #e2e8f0;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.8rem 1.8rem;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 2rem; }
+    .section-label {
+      text-align: center; font-size: .75rem; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--primary);
+      margin-bottom: .75rem;
     }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      background: rgba(14,165,233,0.07);
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 2rem;
-      margin-top: 2.5rem;
-    }
-
-    .hero-stat strong {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .hero-stat span {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* Hero Image Side */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-    }
-
-    .product-card-float {
-      position: relative;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: var(--glow), 0 40px 80px rgba(0,0,0,0.4);
-      max-width: 380px;
-      width: 100%;
-    }
-
-    .product-card-float .badge-bestseller {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.3rem 0.75rem;
-      border-radius: 50px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      z-index: 2;
-    }
-
-    .product-card-float img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      display: block;
-    }
-
-    .product-card-float .card-body {
-      padding: 1.5rem;
-    }
-
-    .product-card-float h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.4rem;
-    }
-
-    .product-card-float .price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .price-main {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--primary);
-    }
-
-    .price-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .product-card-float .free-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(34,197,94,0.12);
-      border: 1px solid rgba(34,197,94,0.25);
-      color: var(--success);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
+    .section-title {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 700;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       margin-bottom: 1rem;
     }
-
-    /* ── FEATURES STRIP ── */
-    .features-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--card-bg);
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .strip-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .strip-item .icon {
-      width: 32px;
-      height: 32px;
-      background: rgba(14,165,233,0.1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-    }
-
-    /* ── SECTION SHARED ── */
-    section { padding: 5rem 2rem; }
-
-    .section-label {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 0.6rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.8rem;
-    }
-
     .section-sub {
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto 3rem;
-      font-size: 1rem;
+      text-align: center; color: var(--muted); max-width: 550px;
+      margin: 0 auto 4rem; line-height: 1.7;
     }
 
-    .text-center { text-align: center; }
-
-    .container { max-width: 1100px; margin: 0 auto; }
-
-    /* ── PRODUCT DETAIL / SHOP ── */
-    #shop {
-      background: linear-gradient(180deg, var(--dark) 0%, #0c1628 100%);
+    /* ── PRODUCT SHOWCASE ── */
+    #shop { background: var(--dark2); position: relative; overflow: hidden; }
+    #shop::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(123,47,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    .product-detail {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
+    .product-showcase {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
     }
 
+    .product-visual { position: relative; }
     .product-image-wrap {
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
+      position: relative; border-radius: 24px; overflow: hidden;
+      background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,47,255,0.08));
       border: 1px solid var(--border);
-      box-shadow: var(--glow);
+      padding: 2rem;
+      box-shadow: 0 0 60px rgba(0,212,255,0.08), inset 0 0 60px rgba(0,0,0,0.3);
     }
-
     .product-image-wrap img {
-      width: 100%;
-      display: block;
-      transition: transform 0.4s;
+      width: 100%; border-radius: 16px; display: block;
+      filter: drop-shadow(0 20px 40px rgba(0,212,255,0.2));
+      transition: transform .5s;
+    }
+    .product-image-wrap:hover img { transform: scale(1.03) translateY(-4px); }
+
+    .badge-bestseller {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      background: linear-gradient(135deg, var(--accent), #ff3b6b);
+      color: #fff; font-size: .7rem; font-weight: 800;
+      padding: .35rem .9rem; border-radius: 50px;
+      letter-spacing: 2px; text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.4);
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .badge-stock {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: rgba(0,212,255,0.1); border: 1px solid var(--primary);
+      color: var(--primary); font-size: .7rem; font-weight: 700;
+      padding: .35rem .9rem; border-radius: 50px;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .badge-stock .pulse-dot {
+      width: 6px; height: 6px; background: var(--primary);
+      border-radius: 50%; animation: pulse 1.5s infinite;
     }
 
-    .product-image-wrap:hover img { transform: scale(1.03); }
+    .stat-float {
+      position: absolute; background: rgba(5,10,20,0.92);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: .75rem 1rem; backdrop-filter: blur(10px);
+      display: flex; align-items: center; gap: .6rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      animation: floatCard 4s ease-in-out infinite;
+    }
+    .stat-float:nth-child(3) { bottom: 2rem; left: -1.5rem; animation-delay: 0s; }
+    .stat-float:nth-child(4) { bottom: 5.5rem; right: -1.5rem; animation-delay: 2s; }
+    @keyframes floatCard {
+      0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
+    }
+    .stat-float .sf-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(0,212,255,0.1); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .stat-float .sf-icon svg { width: 18px; height: 18px; }
+    .stat-float .info { display: flex; flex-direction: column; }
+    .stat-float .val { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .stat-float .lbl { font-size: .65rem; color: var(--muted); margin-top: .1rem; }
 
-    .product-info h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.5rem;
+    /* Product Info */
+    .product-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(0,212,255,0.08); border: 1px solid var(--border);
+      color: var(--primary); font-size: .7rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: .3rem .8rem; border-radius: 50px; margin-bottom: 1rem;
+    }
+    .product-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+      line-height: 1.1; margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .product-desc {
+      color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: .95rem;
     }
 
-    .rating-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 1.2rem;
+    .product-rating {
+      display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem;
+    }
+    .stars-wrap { display: flex; gap: 2px; }
+    .stars-wrap svg { width: 16px; height: 16px; fill: #ffd700; }
+    .rating-text { color: var(--muted); font-size: .85rem; }
+
+    .price-block { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .price-main {
+      font-family: 'Orbitron', sans-serif; font-size: 2.8rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .price-old { color: var(--muted); text-decoration: line-through; font-size: 1.1rem; }
+    .price-save {
+      background: rgba(255,107,53,0.12); border: 1px solid var(--accent);
+      color: var(--accent); font-size: .75rem; font-weight: 700;
+      padding: .25rem .6rem; border-radius: 6px;
     }
 
-    .stars { color: #fbbf24; font-size: 0.95rem; letter-spacing: 1px; }
-
-    .rating-count { font-size: 0.85rem; color: var(--muted); }
-
-    .product-price-block {
-      display: flex;
-      align-items: baseline;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
+    .specs-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 2rem;
     }
-
-    .product-price-block .price {
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: var(--primary);
+    .spec-item {
+      display: flex; align-items: center; gap: .65rem;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: .65rem .9rem;
+      transition: border-color .3s;
     }
-
-    .product-price-block .old-price {
-      font-size: 1.1rem;
-      color: var(--muted);
-      text-decoration: line-through;
+    .spec-item:hover { border-color: rgba(0,212,255,0.5); }
+    .spec-icon-wrap {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(0,212,255,0.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .spec-icon-wrap svg { width: 16px; height: 16px; }
+    .spec-text { font-size: .8rem; color: var(--muted); line-height: 1.3; }
+    .spec-text strong { color: var(--text); display: block; font-size: .72rem; margin-bottom: .1rem; }
 
-    .product-price-block .save-tag {
-      background: rgba(249,115,22,0.15);
-      color: var(--accent);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
+    .product-cta { display: flex; flex-direction: column; gap: .75rem; }
+    .btn-buy {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; border: none; padding: 1rem 2rem; border-radius: 14px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      box-shadow: 0 0 30px rgba(0,212,255,0.25);
+      transition: transform .3s, box-shadow .3s;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      font-family: 'Inter', sans-serif;
     }
-
-    .features-list {
-      list-style: none;
-      margin-bottom: 1.8rem;
-    }
-
-    .features-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.92rem;
-      color: #cbd5e1;
-    }
-
-    .features-list li:last-child { border-bottom: none; }
-
-    .features-list .check {
-      color: var(--success);
-      font-weight: 700;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .qty-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .qty-label { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
-
-    .qty-control {
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--card-bg);
-    }
-
-    .qty-btn {
-      background: none;
-      border: none;
-      color: #e2e8f0;
-      width: 38px;
-      height: 38px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .qty-btn:hover { background: rgba(255,255,255,0.07); }
-
-    .qty-num {
-      width: 42px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #fff;
-      border: none;
-      background: none;
-      outline: none;
-    }
-
-    .product-actions {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-    }
-
+    .btn-buy svg { width: 18px; height: 18px; }
+    .btn-buy:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
     .btn-onsite {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      border: 1px solid rgba(14,165,233,0.4);
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text); padding: 1rem 2rem; border-radius: 14px;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      transition: border-color .3s, color .3s, background .3s;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      font-family: 'Inter', sans-serif;
     }
-
+    .btn-onsite svg { width: 18px; height: 18px; }
     .btn-onsite:hover {
-      background: rgba(14,165,233,0.08);
+      border-color: var(--primary); color: var(--primary);
+      background: rgba(0,212,255,0.05);
     }
 
-    .trust-row {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
+    .guarantee-strip {
+      display: flex; gap: 1.2rem; margin-top: 1.5rem; flex-wrap: wrap;
     }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      color: var(--muted);
+    .g-item {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .78rem; color: var(--muted);
     }
+    .g-item svg { width: 14px; height: 14px; stroke: var(--primary); }
 
     /* ── ORDER FORM ── */
-    #order {
-      background: var(--dark-2);
+    #order { background: var(--dark); }
+    .order-wrap {
+      max-width: 680px; margin: 0 auto;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 24px; padding: 3rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 60px rgba(0,212,255,0.04);
     }
-
-    .form-card {
-      max-width: 680px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 2.5rem;
-      box-shadow: var(--glow);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: .5rem; }
     .form-group.full { grid-column: 1 / -1; }
-
     .form-group label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #94a3b8;
-      letter-spacing: 0.3px;
+      font-size: .75rem; font-weight: 600; color: var(--primary);
+      letter-spacing: 1px; text-transform: uppercase;
     }
-
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: #e2e8f0;
-      font-size: 0.92rem;
-      font-family: 'Inter', sans-serif;
-      padding: 0.75rem 1rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 10px; padding: .85rem 1rem; color: var(--text);
+      font-size: .95rem; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color .3s, box-shadow .3s;
     }
-
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+      box-shadow: 0 0 20px rgba(0,212,255,0.08);
     }
-
-    .form-group select option { background: var(--dark-2); }
-
-    .form-group textarea { resize: vertical; min-height: 90px; }
-
+    .form-group select option { background: var(--dark2); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
     .form-submit {
-      width: 100%;
-      margin-top: 1.5rem;
-      padding: 1rem;
-      font-size: 1rem;
-      font-weight: 700;
-      border-radius: 12px;
-      border: none;
-      background: linear-gradient(135deg, var(--primary), #6366f1);
-      color: #fff;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s;
-      box-shadow: 0 4px 20px rgba(14,165,233,0.3);
+      width: 100%; margin-top: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; border: none; padding: 1.1rem; border-radius: 14px;
+      font-size: 1.05rem; font-weight: 700; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 0 30px rgba(0,212,255,0.25);
+      transition: transform .3s, box-shadow .3s;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
     }
+    .form-submit svg { width: 18px; height: 18px; }
+    .form-submit:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
 
-    .form-submit:hover { opacity: 0.92; transform: translateY(-1px); }
-
-    .form-note {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 1rem;
-    }
-
-    /* ── WHY AERO BOT ── */
-    #about {
-      background: var(--dark);
-    }
-
+    /* ── WHY SECTION ── */
+    #why { background: var(--dark2); }
     .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;
     }
-
     .why-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2rem 1.8rem;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
     }
-
-    .why-card:hover {
-      border-color: rgba(14,165,233,0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(14,165,233,0.1);
+    .why-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0; transition: opacity .3s;
     }
-
-    .why-icon {
-      width: 54px;
-      height: 54px;
-      background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15));
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid rgba(14,165,233,0.15);
+    .why-card:hover { transform: translateY(-8px); border-color: rgba(0,212,255,0.4); box-shadow: 0 20px 60px rgba(0,212,255,0.08); }
+    .why-card:hover::before { opacity: 1; }
+    .why-icon-wrap {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: rgba(0,212,255,0.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
     }
-
+    .why-icon-wrap svg { width: 26px; height: 26px; }
     .why-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif; font-size: .9rem; font-weight: 700;
+      color: var(--primary); margin-bottom: .75rem; letter-spacing: .5px;
     }
+    .why-card p { color: var(--muted); font-size: .88rem; line-height: 1.6; }
 
-    .why-card p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.6;
+    /* ── LOCATION ── */
+    #location { background: var(--dark); }
+    .location-wrap {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem;
+      align-items: start;
     }
-
-    /* ── ONSITE ── */
-    #onsite {
-      background: var(--dark-2);
+    .location-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 20px; padding: 1.75rem; margin-bottom: 1.25rem;
     }
-
-    .onsite-card {
-      max-width: 700px;
-      margin: 0 auto;
-      background: linear-gradient(135deg, rgba(14,165,233,0.08), rgba(99,102,241,0.08));
-      border: 1px solid rgba(14,165,233,0.2);
-      border-radius: 24px;
-      padding: 3rem 2.5rem;
-      text-align: center;
+    .location-card-title {
+      font-family: 'Orbitron', sans-serif; font-size: .85rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: .6rem; letter-spacing: .5px;
     }
-
-    .onsite-card h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.8rem;
-    }
-
-    .onsite-card p { color: var(--muted); margin-bottom: 1.5rem; }
-
-    .info-rows {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-bottom: 2rem;
-      text-align: left;
-    }
+    .location-card-title svg { width: 16px; height: 16px; }
 
     .info-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.9rem 1.2rem;
-      font-size: 0.9rem;
-      color: #cbd5e1;
+      display: flex; align-items: flex-start; gap: .85rem;
+      padding: .8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-icon {
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(0,212,255,0.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .info-icon svg { width: 17px; height: 17px; }
+    .info-content .label {
+      font-size: .68rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .info-content .value {
+      font-size: .88rem; color: var(--text); font-weight: 500; margin-top: .15rem; line-height: 1.5;
     }
 
-    .info-row .i-icon {
-      font-size: 1.1rem;
-      width: 28px;
-      text-align: center;
-      flex-shrink: 0;
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: .85rem;
     }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: var(--muted); }
+    .hours-time { font-weight: 600; }
+    .hours-time.open { color: #00e887; }
+    .hours-time.closed { color: #ff4d6d; }
+
+    .map-wrap {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(0,212,255,0.06);
+      position: relative;
+    }
+    .map-wrap iframe {
+      width: 100%; height: 500px; display: block; border: none;
+    }
+    .map-overlay-badge {
+      position: absolute; bottom: 1.25rem; left: 1.25rem;
+      background: rgba(5,10,20,0.92); border: 1px solid var(--border);
+      border-radius: 12px; padding: .7rem 1rem;
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .map-overlay-badge .pulse-dot {
+      width: 9px; height: 9px; background: var(--primary);
+      border-radius: 50%; animation: pulse 1.5s infinite; flex-shrink: 0;
+    }
+    .map-overlay-badge span { font-size: .78rem; font-weight: 600; color: var(--text); }
+
+    .directions-btn {
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      width: 100%; margin-top: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; padding: .9rem; border-radius: 12px;
+      font-weight: 700; font-size: .88rem; text-decoration: none;
+      transition: transform .3s, box-shadow .3s;
+      box-shadow: 0 0 20px rgba(0,212,255,0.2);
+    }
+    .directions-btn svg { width: 16px; height: 16px; }
+    .directions-btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,212,255,0.4); }
 
     /* ── FOOTER ── */
     footer {
-      background: #07101e;
-      border-top: 1px solid var(--border);
-      padding: 3rem 2rem 2rem;
-      text-align: center;
+      background: var(--dark2); border-top: 1px solid var(--border);
+      padding: 3rem 2rem; text-align: center;
     }
-
     .footer-logo {
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 0.6rem;
-      letter-spacing: -0.5px;
+      font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: .75rem;
     }
-
-    .footer-logo span { color: var(--primary); }
-
-    .footer-tagline {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
+    .footer-tagline { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+    .footer-pills { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .pill {
+      background: var(--card-bg); border: 1px solid var(--border);
+      color: var(--muted); font-size: .75rem; padding: .3rem .85rem; border-radius: 50px;
+      display: flex; align-items: center; gap: .4rem;
     }
+    .pill svg { width: 12px; height: 12px; }
+    .footer-copy { color: var(--muted); font-size: .8rem; }
 
-    .footer-tags {
-      display: flex;
-      justify-content: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
     }
-
-    .footer-tag {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.75rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 50px;
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 24px; padding: 3rem; max-width: 460px; width: 90%;
+      text-align: center; transform: translateY(20px); transition: transform .3s;
     }
-
-    .footer-copy {
-      font-size: 0.8rem;
-      color: #475569;
+    .modal-overlay.active .modal { transform: translateY(0); }
+    .modal-icon-wrap {
+      width: 72px; height: 72px; border-radius: 20px; margin: 0 auto 1.5rem;
+      background: rgba(0,212,255,0.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
     }
-
-    /* ── TOAST ── */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--dark-2);
-      border: 1px solid var(--success);
-      color: #fff;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 999;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    .modal-icon-wrap svg { width: 36px; height: 36px; }
+    .modal h2 {
+      font-family: 'Orbitron', sans-serif; font-size: 1.3rem;
+      color: var(--primary); margin-bottom: .75rem;
     }
-
-    .toast.show { transform: translateY(0); opacity: 1; }
+    .modal p { color: var(--muted); line-height: 1.6; margin-bottom: 2rem; font-size: .95rem; }
+    .modal-close {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; border: none; padding: .85rem 2.2rem; border-radius: 50px;
+      font-weight: 700; cursor: pointer; font-size: .95rem;
+      font-family: 'Inter', sans-serif;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .modal-close:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0,212,255,0.4); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero p { margin: 0 auto 2rem; }
-      .hero-actions { justify-content: center; }
-      .hero-stats { justify-content: center; }
-      .hero-visual { display: none; }
-      .product-detail { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: 1fr 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-group.full { grid-column: 1; }
+      nav { padding: 1rem 1.5rem; }
+      .product-showcase { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stat-float:nth-child(3) { bottom: 1rem; left: .5rem; }
+      .stat-float:nth-child(4) { bottom: 4.5rem; right: .5rem; }
+      .location-wrap { grid-template-columns: 1fr; }
+      .map-wrap iframe { height: 360px; }
     }
-
     @media (max-width: 600px) {
-      nav { padding: 0 1rem; }
-      .nav-links { gap: 1rem; }
-      section { padding: 3.5rem 1rem; }
-      .why-grid { grid-template-columns: 1fr; }
-      .features-strip { gap: 1.2rem; }
-      .form-card { padding: 1.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: 1fr; }
+      .order-wrap { padding: 2rem 1.25rem; }
+      .nav-links { display: none; }
+      .guarantee-strip { gap: .8rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
+<!-- ─────────────── SVG SPRITE ─────────────── -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <!-- chip / processor -->
+  <symbol id="ico-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="7" y="7" width="10" height="10" rx="1"/>
+    <path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/>
+  </symbol>
+  <!-- wifi / signal -->
+  <symbol id="ico-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/>
+  </symbol>
+  <!-- phone -->
+  <symbol id="ico-phone-app" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="2" width="14" height="20" rx="2"/>
+    <path d="M12 18h.01"/>
+  </symbol>
+  <!-- settings / expand -->
+  <symbol id="ico-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+  </symbol>
+  <!-- book -->
+  <symbol id="ico-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+  </symbol>
+  <!-- layers / level -->
+  <symbol id="ico-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+    <polyline points="2 17 12 22 22 17"/>
+    <polyline points="2 12 12 17 22 12"/>
+  </symbol>
+  <!-- cart -->
+  <symbol id="ico-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+  </symbol>
+  <!-- map pin -->
+  <symbol id="ico-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </symbol>
+  <!-- building / school -->
+  <symbol id="ico-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 21h18M3 7l9-4 9 4M4 7v14M20 7v14M9 21v-4a3 3 0 016 0v4"/>
+    <rect x="9" y="10" width="2" height="3"/><rect x="13" y="10" width="2" height="3"/>
+  </symbol>
+  <!-- clock -->
+  <symbol id="ico-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polyline points="12 6 12 12 16 14"/>
+  </symbol>
+  <!-- phone contact -->
+  <symbol id="ico-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+  </symbol>
+  <!-- mail -->
+  <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <!-- navigation / directions -->
+  <symbol id="ico-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+  </symbol>
+  <!-- shield check -->
+  <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    <polyline points="9 12 11 14 15 10"/>
+  </symbol>
+  <!-- refresh / return -->
+  <symbol id="ico-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="1 4 1 10 7 10"/>
+    <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+  </symbol>
+  <!-- truck -->
+  <symbol id="ico-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="3" width="15" height="13"/>
+    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+    <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+  </symbol>
+  <!-- gift / free -->
+  <symbol id="ico-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 12 20 22 4 22 4 12"/>
+    <rect x="2" y="7" width="20" height="5"/>
+    <line x1="12" y1="22" x2="12" y2="7"/>
+    <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+    <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+  </symbol>
+  <!-- robot / build -->
+  <symbol id="ico-robot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="11" width="18" height="10" rx="2"/>
+    <circle cx="12" cy="5" r="2"/>
+    <path d="M12 7v4"/>
+    <line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>
+    <path d="M9 15h6"/>
+  </symbol>
+  <!-- zap / fast -->
+  <symbol id="ico-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- star -->
+  <symbol id="ico-star" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <!-- check circle -->
+  <symbol id="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+    <polyline points="22 4 12 14.01 9 11.01"/>
+  </symbol>
+  <!-- send -->
+  <symbol id="ico-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13"/>
+    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+  </symbol>
+  <!-- map -->
+  <symbol id="ico-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+    <line x1="8" y1="2" x2="8" y2="18"/>
+    <line x1="16" y1="6" x2="16" y2="22"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="logo-icon">🤖</div>
-    AERO<span>BOT</span>
-  </a>
+  <div class="nav-logo">AERO BOT</div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
+    <li><a href="index2.html">Home</a></li>
+    <li><a href="#why">About</a></li>
     <li><a href="#shop">Shop</a></li>
     <li><a href="#order" class="nav-cta">Order Now</a></li>
   </ul>
 </nav>
 
 <!-- ── HERO ── -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-badge">🚀 Now Available — Limited Stock</div>
-      <h1>Build a Robot That <span>Thinks on Its Feet</span></h1>
-      <p>Pick your kit, choose delivery or local pickup, and get ready to build a self-balancing robot that learns as you program it.</p>
-      <div class="hero-actions">
-        <a href="#order" class="btn-primary">🛒 Order Now — \$199</a>
-        <a href="#shop" class="btn-secondary">View Details →</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong>ESP32</strong><span>Powered</span></div>
-        <div class="hero-stat"><strong>WiFi+BT</strong><span>Control</span></div>
-        <div class="hero-stat"><strong>Free App</strong><span>Included</span></div>
-      </div>
+<section class="hero" id="hero">
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">
+      <div class="pulse-dot"></div>
+      Now Available in the Philippines
     </div>
-    <div class="hero-visual">
-      <div class="product-card-float">
-        <div class="badge-bestseller">⭐ Best Seller</div>
-        <img src="balancing robot.jpg" alt="Aero Bot Self-Balancing Robot Kit" onerror="this.style.background='linear-gradient(135deg,#1e293b,#0ea5e9)';this.style.height='240px';"/>
-        <div class="card-body">
-          <h3>Aero Bot Kit</h3>
-          <div class="price-row">
-            <span class="price-main">\$199</span>
-            <span class="price-note">one-time</span>
-          </div>
-          <div class="free-tag">✅ Free App + Starter Projects</div>
-          <a href="#order" class="btn-primary" style="width:100%;justify-content:center;">Get Yours →</a>
-        </div>
-      </div>
+    <h1>The Future of<br/>Self-Balancing<br/>Robotics</h1>
+    <p>Build, program, and control your own AI-powered robot. Designed for curious minds, makers, and the next generation of engineers.</p>
+    <div class="hero-btns">
+      <a href="#shop" class="btn-primary">
+        Shop Now
+      </a>
+      <a href="#order" class="btn-outline">
+        Place an Order
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ── FEATURES STRIP ── -->
-<div class="features-strip">
-  <div class="strip-item"><div class="icon">🚚</div> Free Shipping Available</div>
-  <div class="strip-item"><div class="icon">📱</div> Free iOS & Android App</div>
-  <div class="strip-item"><div class="icon">🔧</div> Step-by-Step Build Guide</div>
-  <div class="strip-item"><div class="icon">⚡</div> ESP32 Powered</div>
-  <div class="strip-item"><div class="icon">🔒</div> Secure Checkout</div>
-</div>
-
-<!-- ── SHOP / PRODUCT DETAIL ── -->
+<!-- ── PRODUCT SHOWCASE ── -->
 <section id="shop">
-  <div class="container">
-    <div class="product-detail">
-      <div class="product-image-wrap">
-        <img src="balancing robot.jpg" alt="Aero Bot Kit"
-          onerror="this.style.background='linear-gradient(135deg,#1e293b,#0284c7)';this.style.height='400px';this.alt='Aero Bot';" />
-      </div>
-      <div class="product-info">
-        <p class="section-label">Aero Bot Collection</p>
-        <h2>Aero Bot Kit</h2>
-        <div class="rating-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-count">4.9 · 128 reviews</span>
-        </div>
-        <div class="product-price-block">
-          <span class="price">\$199</span>
-          <span class="old-price">\$249</span>
-          <span class="save-tag">Save \$50</span>
-        </div>
-        <ul class="features-list">
-          <li><span class="check">✓</span> ESP32-powered self-balancing chassis</li>
-          <li><span class="check">✓</span> Bluetooth & Wi-Fi control built-in</li>
-          <li><span class="check">✓</span> Step-by-step building guide included</li>
-          <li><span class="check">✓</span> Expandable sensors & modules</li>
-          <li><span class="check">✓</span> Free Aero Bot app (Android & iOS)</li>
-          <li><span class="check">✓</span> Starter projects to get you coding fast</li>
-        </ul>
-        <div class="qty-row">
-          <span class="qty-label">Quantity</span>
-          <div class="qty-control">
-            <button class="qty-btn" onclick="changeQty(-1)">−</button>
-            <input class="qty-num" id="qtyDisplay" type="text" value="1" readonly />
-            <button class="qty-btn" onclick="changeQty(1)">+</button>
-          </div>
-        </div>
-        <div class="product-actions">
-          <a href="#order" class="btn-primary">🛒 Order Online</a>
-          <a href="#onsite" class="btn-onsite">🏪 Order Onsite</a>
-        </div>
-        <div class="trust-row">
-          <div class="trust-item">🔒 Secure payment</div>
-          <div class="trust-item">📦 Fast dispatch</div>
-          <div class="trust-item">🔄 Easy returns</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <div class="section-label">Our Product</div>
+  <h2 class="section-title">Aero Bot Kit</h2>
+  <p class="section-sub">Everything you need to build a fully functional self-balancing robot — straight out of the box.</p>
 
-<!-- ── WHY AERO BOT ── -->
-<section id="about">
-  <div class="container text-center">
-    <p class="section-label">Why Choose Us</p>
-    <h2 class="section-title">Why Aero Bot?</h2>
-    <p class="section-sub">Everything you need to build, control, and expand your robot — right out of the box.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">🤖</div>
-        <h3>Build & Learn</h3>
-        <p>Assemble the kit and learn how self-balancing robots stay upright with real sensors and real code. Perfect for students and makers alike.</p>
+  <div class="product-showcase">
+
+    <!-- Visual -->
+    <div class="product-visual">
+      <div class="product-image-wrap">
+        <div class="badge-bestseller">
+          <svg width="12" height="12"><use href="#ico-zap"/></svg>
+          Best Seller
+        </div>
+        <div class="badge-stock">
+          <div class="pulse-dot"></div> In Stock
+        </div>
+        <img src="balancing robot.png" alt="Aero Bot Self-Balancing Robot Kit" />
       </div>
-      <div class="why-card">
-        <div class="why-icon">📱</div>
-        <h3>Control from Your Phone</h3>
-        <p>Use the free Aero Bot app on Android or iOS to pilot, tune, and program the robot wirelessly — no cables needed.</p>
+
+      <div class="stat-float">
+        <div class="sf-icon">
+          <svg style="stroke:var(--primary)"><use href="#ico-chip"/></svg>
+        </div>
+        <div class="info">
+          <span class="val">ESP32</span>
+          <span class="lbl">Dual-Core Processor</span>
+        </div>
       </div>
-      <div class="why-card">
-        <div class="why-icon">⚡</div>
-        <h3>Fast & Expandable</h3>
-        <p>ESP32 brain with room for extra modules: sensors, cameras, and more. Grow your robot as your skills grow.</p>
+
+      <div class="stat-float">
+        <div class="sf-icon">
+          <svg style="stroke:var(--primary)"><use href="#ico-check"/></svg>
+        </div>
+        <div class="info">
+          <span class="val">500+ Sold</span>
+          <span class="lbl">Happy Builders</span>
+        </div>
       </div>
     </div>
+
+    <!-- Info -->
+    <div class="product-info">
+      <div class="product-tag">
+        <svg width="12" height="12" style="stroke:var(--primary)"><use href="#ico-robot"/></svg>
+        Robotics Kit
+      </div>
+      <h2 class="product-name">Aero Bot<br/>Complete Kit</h2>
+      <p class="product-desc">An ESP32-powered self-balancing robot chassis with Bluetooth &amp; Wi-Fi control, free companion app, step-by-step guide, and expandable sensor support. Perfect for students, hobbyists, and makers.</p>
+
+      <div class="product-rating">
+        <div class="stars-wrap">
+          <svg><use href="#ico-star"/></svg>
+          <svg><use href="#ico-star"/></svg>
+          <svg><use href="#ico-star"/></svg>
+          <svg><use href="#ico-star"/></svg>
+          <svg><use href="#ico-star"/></svg>
+        </div>
+        <span class="rating-text">4.9 / 5.0 &nbsp;·&nbsp; 128 reviews</span>
+      </div>
+
+      <div class="price-block">
+        <span class="price-main">₱199</span>
+        <span class="price-old">₱249</span>
+        <span class="price-save">Save 20%</span>
+      </div>
+
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-icon-wrap">
+            <svg style="stroke:var(--primary)"><use href="#ico-chip"/></svg>
+          </div>
+          <div class="spec-text"><strong>Processor</strong>ESP32 Dual-Core</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon-wrap">
+            <svg style="stroke:var(--primary)"><use href="#ico-wifi"/></svg>
+          </div>
+          <div class="spec-text"><strong>Connectivity</strong>Bluetooth &amp; Wi-Fi</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon-wrap">
+            <svg style="stroke:var(--primary)"><use href="#ico-phone-app"/></svg>
+          </div>
+          <div class="spec-text"><strong>App</strong>Android &amp; iOS</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon-wrap">
+            <svg style="stroke:var(--primary)"><use href="#ico-expand"/></svg>
+          </div>
+          <div class="spec-text"><strong>Expandable</strong>Sensors &amp; Modules</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon-wrap">
+            <svg style="stroke:var(--primary)"><use href="#ico-book"/></svg>
+          </div>
+          <div class="spec-text"><strong>Includes</strong>Step-by-Step Guide</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon-wrap">
+            <svg style="stroke:var(--primary)"><use href="#ico-layers"/></svg>
+          </div>
+          <div class="spec-text"><strong>Level</strong>Beginner – Advanced</div>
+        </div>
+      </div>
+
+      <div class="product-cta">
+        <button class="btn-buy" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">
+          <svg><use href="#ico-cart"/></svg>
+          Order Online — Get It Delivered
+        </button>
+        <button class="btn-onsite" onclick="document.getElementById('location').scrollIntoView({behavior:'smooth'})">
+          <svg style="stroke:currentColor"><use href="#ico-building"/></svg>
+          Visit Our Campus Store
+        </button>
+      </div>
+
+      <div class="guarantee-strip">
+        <div class="g-item">
+          <svg><use href="#ico-gift"/></svg> Free App Included
+        </div>
+        <div class="g-item">
+          <svg><use href="#ico-refresh"/></svg> 30-Day Returns
+        </div>
+        <div class="g-item">
+          <svg><use href="#ico-shield"/></svg> 1-Year Warranty
+        </div>
+        <div class="g-item">
+          <svg><use href="#ico-truck"/></svg> Fast Delivery
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ── ORDER FORM ── -->
 <section id="order">
-  <div class="container text-center">
-    <p class="section-label">Place Your Order</p>
-    <h2 class="section-title">Order Your Aero Bot</h2>
-    <p class="section-sub">Fill in your details below — we'll follow up with payment info and shipping confirmation.</p>
-    <div class="form-card">
-      <form id="orderForm" onsubmit="handleSubmit(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="name">Full Name *</label>
-            <input type="text" id="name" placeholder="Jane Smith" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" placeholder="jane@example.com" required />
-          </div>
-          <div class="form-group">
-            <label for="qty">Quantity *</label>
-            <select id="qty" required>
-              <option value="">Select quantity</option>
-              <option value="1">1 Kit — \$199</option>
-              <option value="2">2 Kits — \$398</option>
-              <option value="3">3 Kits — \$597</option>
-              <option value="4">4 Kits — \$796</option>
-              <option value="5">5 Kits — \$995</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="delivery">Delivery Method *</label>
-            <select id="delivery" required>
-              <option value="">Select method</option>
-              <option value="shipping">📦 Ship to my address</option>
-              <option value="pickup">🏪 Local pickup (Techville)</option>
-            </select>
-          </div>
-          <div class="form-group full">
-            <label for="address">Shipping Address</label>
-            <input type="text" id="address" placeholder="123 Main St, City, State, ZIP" />
-          </div>
-          <div class="form-group full">
-            <label for="notes">Additional Notes (Optional)</label>
-            <textarea id="notes" placeholder="Any special requests or questions..."></textarea>
-          </div>
+  <div class="section-label">Ready to Build?</div>
+  <h2 class="section-title">Place Your Order</h2>
+  <p class="section-sub">Fill in your details below. We'll reach out with payment instructions and shipping info within 24 hours.</p>
+
+  <div class="order-wrap">
+    <form id="orderForm" onsubmit="submitOrder(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Juan dela Cruz" required />
         </div>
-        <button type="submit" class="form-submit">🚀 Place My Order</button>
-        <p class="form-note">🔒 Your information is safe. We'll reach out within 24 hours with payment details.</p>
-      </form>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="juan@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Quantity</label>
+          <select required>
+            <option value="">Select qty</option>
+            <option>1 unit — ₱199</option>
+            <option>2 units — ₱398</option>
+            <option>3 units — ₱597</option>
+            <option>4 units — ₱796</option>
+            <option>5 units — ₱995</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Delivery Method</label>
+          <select required>
+            <option value="">Choose method</option>
+            <option>Delivery (Nationwide)</option>
+            <option>Pickup – Colegio de Montalban</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Shipping Address</label>
+          <input type="text" placeholder="Street, Barangay, City, Province" />
+        </div>
+        <div class="form-group full">
+          <label>Additional Notes (Optional)</label>
+          <textarea placeholder="Special instructions, preferred schedule, etc."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">
+        <svg><use href="#ico-send"/></svg>
+        Place My Order
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ── WHY AERO BOT ── -->
+<section id="why">
+  <div class="section-label">Why Choose Us</div>
+  <h2 class="section-title">Why Aero Bot?</h2>
+  <p class="section-sub">More than a kit — it's a complete learning experience built for the next generation of Filipino engineers.</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon-wrap">
+        <svg style="stroke:var(--primary)"><use href="#ico-robot"/></svg>
+      </div>
+      <h3>Build &amp; Learn</h3>
+      <p>Assemble the kit from scratch and discover how real self-balancing systems work using gyroscopes and PID algorithms.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon-wrap">
+        <svg style="stroke:var(--primary)"><use href="#ico-phone-app"/></svg>
+      </div>
+      <h3>App-Controlled</h3>
+      <p>Pilot, tune, and program your robot wirelessly using the free Aero Bot app — available on Android and iOS.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon-wrap">
+        <svg style="stroke:var(--primary)"><use href="#ico-zap"/></svg>
+      </div>
+      <h3>Fast &amp; Expandable</h3>
+      <p>Powered by the ESP32 dual-core processor with room for cameras, extra sensors, and custom modules.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon-wrap">
+        <svg style="stroke:var(--primary)"><use href="#ico-building"/></svg>
+      </div>
+      <h3>Campus Available</h3>
+      <p>Visit us at Colegio de Montalban for onsite pickup, live demos, and hands-on building workshops.</p>
     </div>
   </div>
 </section>
 
-<!-- ── ONSITE ── -->
-<section id="onsite">
-  <div class="container">
-    <div class="onsite-card">
-      <p class="section-label">Visit Us In Person</p>
-      <h2>Order Onsite</h2>
-      <p>Visit our store and pick up your kit today — the fastest way to get started with Aero Bot.</p>
-      <div class="info-rows">
-        <div class="info-row">
-          <span class="i-icon">📍</span>
-          <span>123 Aero St, Robotics District, Techville</span>
+<!-- ── LOCATION ── -->
+<section id="location">
+  <div class="section-label">Find Us</div>
+  <h2 class="section-title">Visit Our Store</h2>
+  <p class="section-sub">Come see the Aero Bot in action, pick up your kit, or join one of our weekend workshops at our campus location.</p>
+
+  <div class="location-wrap">
+
+    <!-- Info Panel -->
+    <div class="location-info">
+
+      <div class="location-card">
+        <div class="location-card-title">
+          <svg style="stroke:var(--primary)"><use href="#ico-pin"/></svg>
+          Store Details
         </div>
         <div class="info-row">
-          <span class="i-icon">🕐</span>
-          <span>Mon–Fri: 10am–6pm &nbsp;·&nbsp; Saturday: 10am–4pm &nbsp;·&nbsp; Sunday: Closed</span>
+          <div class="info-icon">
+            <svg style="stroke:var(--primary)"><use href="#ico-building"/></svg>
+          </div>
+          <div class="info-content">
+            <div class="label">Location</div>
+            <div class="value">Colegio de Montalban<br/>Burgos St, Montalban Poblacion,<br/>Rodriguez, Rizal, Philippines</div>
+          </div>
         </div>
         <div class="info-row">
-          <span class="i-icon">📞</span>
-          <span>+1 (234) 567-890</span>
+          <div class="info-icon">
+            <svg style="stroke:var(--primary)"><use href="#ico-phone"/></svg>
+          </div>
+          <div class="info-content">
+            <div class="label">Contact</div>
+            <div class="value">+63 (912) 345-6789</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg style="stroke:var(--primary)"><use href="#ico-mail"/></svg>
+          </div>
+          <div class="info-content">
+            <div class="label">Email</div>
+            <div class="value">hello@aerobot.ph</div>
+          </div>
         </div>
       </div>
-      <a href="tel:+1234567890" class="btn-primary">📞 Call to Reserve a Kit</a>
+
+      <div class="location-card">
+        <div class="location-card-title">
+          <svg style="stroke:var(--primary)"><use href="#ico-clock"/></svg>
+          Store Hours
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Monday – Friday</span>
+          <span class="hours-time open">10:00 AM – 6:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Saturday</span>
+          <span class="hours-time open">10:00 AM – 4:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Sunday</span>
+          <span class="hours-time closed">Closed</span>
+        </div>
+      </div>
+
+      <a
+        href="https://www.google.com/maps/place/Colegio+de+Montalban/@14.7438,121.1297,17z"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="directions-btn"
+      >
+        <svg><use href="#ico-nav"/></svg>
+        Get Directions on Google Maps
+      </a>
+
     </div>
+
+    <!-- Map — pinned to Colegio de Montalban, Rodriguez, Rizal -->
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.3!2d121.12972!3d14.74385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7d9d4e4e4e5%3A0xb1c4e2f3a5d6e7f8!2sColegio%20de%20Montalban!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Colegio de Montalban, Rodriguez, Rizal, Philippines"
+      ></iframe>
+      <div class="map-overlay-badge">
+        <div class="pulse-dot"></div>
+        <span>Colegio de Montalban · Rodriguez, Rizal</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-logo">AERO<span>BOT</span></div>
-  <p class="footer-tagline">The Future of Self-Balancing Robotics</p>
-  <div class="footer-tags">
-    <span class="footer-tag">ESP32 Powered</span>
-    <span class="footer-tag">WiFi Controlled</span>
-    <span class="footer-tag">Kid & Techie Friendly</span>
-    <span class="footer-tag">Free App Included</span>
+  <div class="footer-logo">AERO BOT</div>
+  <p class="footer-tagline">The Future of Self-Balancing Robotics — Made in the Philippines</p>
+  <div class="footer-pills">
+    <span class="pill">
+      <svg style="stroke:var(--muted)"><use href="#ico-chip"/></svg>
+      ESP32 Powered
+    </span>
+    <span class="pill">
+      <svg style="stroke:var(--muted)"><use href="#ico-wifi"/></svg>
+      WiFi Controlled
+    </span>
+    <span class="pill">
+      <svg style="stroke:var(--muted)"><use href="#ico-shield"/></svg>
+      1-Year Warranty
+    </span>
+    <span class="pill">
+      <svg style="stroke:var(--muted)"><use href="#ico-building"/></svg>
+      Colegio de Montalban
+    </span>
   </div>
   <p class="footer-copy">© 2025 Aero Bot. All rights reserved.</p>
 </footer>
 
-<!-- ── TOAST ── -->
-<div class="toast" id="toast">✅ Order submitted! We'll contact you within 24 hours.</div>
+<!-- ── SUCCESS MODAL ── -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon-wrap">
+      <svg style="stroke:var(--primary)"><use href="#ico-check"/></svg>
+    </div>
+    <h2>Order Received!</h2>
+    <p>Thanks for ordering your Aero Bot Kit! We'll contact you within 24 hours with payment details and shipping information.</p>
+    <button class="modal-close" onclick="closeModal()">Awesome, Got It!</button>
+  </div>
+</div>
 
 <script>
-  // Quantity control (product page)
-  let qty = 1;
-  function changeQty(delta) {
-    qty = Math.max(1, Math.min(5, qty + delta));
-    document.getElementById('qtyDisplay').value = qty;
-  }
-
-  // Form submit
-  function handleSubmit(e) {
+  function submitOrder(e) {
     e.preventDefault();
-    const btn = document.querySelector('.form-submit');
-    btn.textContent = '⏳ Submitting...';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = '✅ Order Placed!';
-      showToast();
-      document.getElementById('orderForm').reset();
-      setTimeout(() => {
-        btn.textContent = '🚀 Place My Order';
-        btn.disabled = false;
-      }, 3000);
-    }, 1200);
+    document.getElementById('successModal').classList.add('active');
   }
-
-  function showToast() {
-    const t = document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 5000);
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('active');
+    document.getElementById('orderForm').reset();
   }
-
-  // Smooth active nav highlight
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === `#${current}` ? '#fff' : '';
-    });
+  document.getElementById('successModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
   });
 </script>
+
 </body>
 </html>
